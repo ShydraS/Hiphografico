@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bem-vindo</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  html, body {
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  .welcome, .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .welcome h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  .creditos {
+    margin-top: 40px; /* espaçamento maior */
+    text-align: center;
+    line-height: 1.6;
+  }
+  .creditos-titulo {
+    font-size: 1.3em; /* título maior */
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  .creditos-nomes {
+    color: red;
+    font-size: 1.1em;
+  }
+  .enter-button, .next-button {
+    padding: 12px 24px;
+    font-size: 1.2em;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  .enter-button:hover, .next-button:hover {
+    background-color: #ccc;
+  }
+  .main-content {
+    display: none;
+    max-width: 100%;
+  }
+  .main-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  .main-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 90%;
+    margin-bottom: 10px;
+  }
+  .vape-name {
+    font-size: 1.3em;
+    color: red;
+    margin: 10px 0;
+  }
+  .image-container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    cursor: pointer;
+  }
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    background-color: #444;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .dot.active {
+    background-color: #fff;
+  }
+  .next-button, #voltarButton {
+    display: none;
+  }
+  @media (max-width: 600px) {
+    .welcome h1 {
+      font-size: 2em;
+    }
+    .main-content h2 {
+      font-size: 1.5em;
+    }
+    .main-content p {
+      font-size: 1em;
+    }
+    .vape-name {
+      font-size: 1.2em;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="welcome" id="welcome">
+    <h1>Bem-vindo ao nosso site</h1>
+    <button class="enter-button" onclick="entrar()">Entrar</button>
+    <div class="creditos">
+      <div class="creditos-titulo">Trabalho feito por:</div>
+      <div class="creditos-nomes">
+        Mario<br>
+        Gabriel Vitor<br>
+        Gabriel Dias<br>
+        Gabriel Alves<br>
+        Guilherme
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content" id="conteudo">
+    <h2 id="titulo"></h2>
+    <p id="texto"></p>
+    <div class="vape-name" id="vapeName"></div>
+    <div class="image-container" id="imageContainer">
+      <img id="vapeImage" src="" alt="Imagem de vape" />
+    </div>
+    <div class="dots" id="dotsContainer"></div>
+
+    <button class="next-button" id="nextButton">Próximo</button>
+    <button class="next-button" id="voltarButton">Voltar</button>
+  </div>
+
+<script>
+  const imagensParte1 = [
+    "imagem/IMG-20250805-WA001.jpg",
+    "imagem/IMG-20250805-WA002.jpg",
+    "imagem/IMG-20250805-WA003.jpg",
+    "imagem/IMG-20250805-WA004.jpg",
+    "imagem/IMG-20250805-WA005.jpg",
+    "imagem/IMG-20250805-WA006.jpg",
+    "imagem/IMG-20250805-WA007.jpg",
+    "imagem/IMG-20250805-WA008.jpg",
+    "imagem/IMG-20250805-WA009.jpg",
+    "imagem/IMG-20250805-WA010.jpg"
+  ];
+  const nomesParte1 = [
+    "Cigalike",
+    "Heat Not Brur",
+    "Descartável",
+    "Box Mod",
+    "Mob Mecânico",
+    "Pen",
+    "Squonk",
+    "Pod",
+    "Pod Mob",
+    "Aio"
+  ];
+
+  const imagensParte2 = [
+    "imagem/IMG-20250805-WA011.jpg",
+    "imagem/IMG-20250805-WA012.jpg",
+    "imagem/IMG-20250805-WA013.jpg",
+    "imagem/IMG-20250805-WA014.jpg",
+    "imagem/IMG-20250805-WA015.jpg",
+    "imagem/IMG-20250805-WA016.jpg",
+    "imagem/IMG-20250805-WA017.jpg",
+    "imagem/IMG-20250805-WA018.jpg",
+    "imagem/IMG-20250805-WA019.jpg",
+    "imagem/IMG-20250805-WA020.jpg"
+  ];
+  const nomesParte2 = [
+    "USB",
+    "Bocais",
+    "Botões",
+    "Tanques",
+    "Telas",
+    "Componentes",
+    "Conectores",
+    "Leds",
+    "Anéis de Vedação",
+    "Baterias"
+  ];
+
+  const imagensParte3 = [
+    "imagem/IMG-20250805-WA021.jpg",
+    "imagem/IMG-20250805-WA022.jpg"
+  ];
+
+  let parte = 1;
+  let indice = 0;
+  let timeoutAparecer;
+
+  const botoesVisiveis = { 1: false, 2: false, 3: false };
+
+  function entrar() {
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("conteudo").style.display = "flex";
+    parte = 1;
+    indice = 0;
+    atualizar();
+  }
+
+  function atualizar() {
+    const titulo = document.getElementById("titulo");
+    const texto = document.getElementById("texto");
+    const vapeName = document.getElementById("vapeName");
+    const img = document.getElementById("vapeImage");
+
+    if (parte === 1) {
+      titulo.textContent = "O que é vape?";
+      texto.textContent = "Vape é um dispositivo eletrônico utilizado para aquecer um líquido que se transforma em vapor, o qual é inalado pelo usuário. O primeiro vape moderno foi criado em 2003 pelo farmacêutico chinês Hon Lik como uma alternativa ao cigarro tradicional. Desde então, ganhou popularidade mundial, principalmente entre quem busca reduzir ou abandonar o consumo de tabaco, Atualmente, existem 10 modelos principais de vape, sendo eles:";
+      vapeName.textContent = "pode " + nomesParte1[indice];
+      img.src = imagensParte1[indice];
+    } else if (parte === 2) {
+      titulo.textContent = "Como o vape funciona?";
+      texto.textContent = "O vape funciona por meio de um sistema simples: ao ser ativado — seja automaticamente ao puxar ou por meio de um botão — a bateria do dispositivo aquece uma resistência interna, chamada de coil. Essa resistência aquece o líquido presente no reservatório, conhecido como \"juice\", que contém nicotina e outros componentes. Quando aquecido, o juice se transforma em vapor, que é então inalado pelos pulmões do usuário.";
+      vapeName.textContent = nomesParte2[indice];
+      img.src = imagensParte2[indice];
+    } else if (parte === 3) {
+      titulo.textContent = "Como ele age no corpo humano?";
+      texto.textContent = "Quando o vapor do vape é inalado, ele entra pelos pulmões e passa rapidamente para o sangue, espalhando substâncias como a nicotina. Isso causa efeitos imediatos, como sensação de prazer, aumento da pressão arterial e aceleração dos batimentos cardíacos. Com o uso contínuo, surgem efeitos nocivos: nos pulmões, pode causar inflamações e doenças respiratórias; no coração, eleva o risco de hipertensão e infarto; no cérebro, interfere no desenvolvimento e gera vício; e na boca e garganta, provoca irritações e problemas bucais.";
+      vapeName.textContent = "";
+      img.src = imagensParte3[indice];
+    }
+
+    criarDots();
+    esconderBotoes();
+    iniciarTimerBotoes();
+  }
+
+  function atualizarConteudoSemEsconderBotoes() {
+    const vapeName = document.getElementById("vapeName");
+    const img = document.getElementById("vapeImage");
+
+    if (parte === 1) {
+      vapeName.textContent = "pode " + nomesParte1[indice];
+      img.src = imagensParte1[indice];
+    } else if (parte === 2) {
+      vapeName.textContent = nomesParte2[indice];
+      img.src = imagensParte2[indice];
+    } else if (parte === 3) {
+      vapeName.textContent = "";
+      img.src = imagensParte3[indice];
+    }
+
+    criarDots();
+  }
+
+  function criarDots() {
+    const container = document.getElementById("dotsContainer");
+    container.innerHTML = "";
+
+    let total = 0;
+    if (parte === 1) total = imagensParte1.length;
+    else if (parte === 2) total = imagensParte2.length;
+    else total = imagensParte3.length;
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === indice) dot.classList.add("active");
+      dot.addEventListener("click", () => {
+        indice = i;
+        atualizarConteudoSemEsconderBotoes();
+      });
+      container.appendChild(dot);
+    }
+  }
+
+  function trocarImagem(event) {
+    const largura = event.target.clientWidth;
+    const cliqueX = event.offsetX;
+
+    let total = 0;
+    if (parte === 1) total = imagensParte1.length;
+    else if (parte === 2) total = imagensParte2.length;
+    else total = imagensParte3.length;
+
+    if (cliqueX < largura / 2) {
+      indice = (indice - 1 + total) % total;
+    } else {
+      indice = (indice + 1) % total;
+    }
+    atualizarConteudoSemEsconderBotoes();
+  }
+
+  function esconderBotoes() {
+    clearTimeout(timeoutAparecer);
+    document.getElementById("nextButton").style.display = "none";
+    document.getElementById("voltarButton").style.display = "none";
+  }
+
+  function iniciarTimerBotoes() {
+    clearTimeout(timeoutAparecer);
+
+    if (botoesVisiveis[parte]) {
+      mostrarBotoes();
+    } else {
+      timeoutAparecer = setTimeout(() => {
+        mostrarBotoes();
+        botoesVisiveis[parte] = true;
+      }, 6000);
+    }
+  }
+
+  function mostrarBotoes() {
+    if (parte === 1) {
+      document.getElementById("nextButton").style.display = "inline-block";
+      document.getElementById("voltarButton").style.display = "none";
+    } else if (parte === 2) {
+      document.getElementById("nextButton").style.display = "inline-block";
+      document.getElementById("voltarButton").style.display = "inline-block";
+    } else if (parte === 3) {
+      document.getElementById("nextButton").style.display = "none";
+      document.getElementById("voltarButton").style.display = "inline-block";
+    }
+  }
+
+  document.getElementById("nextButton").addEventListener("click", () => {
+    esconderBotoes();
+    if (parte < 3) {
+      parte++;
+      indice = 0;
+      atualizar();
+    }
+  });
+
+  document.getElementById("voltarButton").addEventListener("click", () => {
+    esconderBotoes();
+    if (parte > 1) {
+      parte--;
+      indice = 0;
+      atualizar();
+    }
+  });
+
+  document.getElementById("imageContainer").addEventListener("click", trocarImagem);
+
+</script>
+
+</body>
+</html>
